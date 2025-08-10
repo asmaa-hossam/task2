@@ -1,0 +1,24 @@
+.authContainer{
+    background-image: url('../src/assets/images/authimg.png');
+    background-size: cover;
+}
+.overlay{
+    background: linear-gradient(45deg,rgba(84, 158, 124,0.6),rgba(46, 45, 45, 0.99));
+}
+
+.container-SideBar .ps-sidebar-container{
+    
+    background-color:rgba(31, 38, 62, 1) ;
+    height: 100vh;
+    border-top-right-radius:50px ;
+}
+.container-SideBar .ps-menu-button{
+    color: antiquewhite !important;
+}
+.container-SideBar .ps-menu-button:hover{
+     background-color:rgba(0, 146, 77,0.2) !important;
+     border: 2px solid rgba(0, 146, 77,0.4) ;
+     transition: all 1s;
+     border-radius: 5px;
+     
+}
