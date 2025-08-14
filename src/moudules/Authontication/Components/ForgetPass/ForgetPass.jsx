@@ -33,9 +33,9 @@ axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Reset/Request`,data)
        </div>
 
          <form onSubmit={handleSubmit(onSubmit)} >
-       <div class="input-group mb-4">
-  <span class="input-group-text" id="basic-addon1"> <i class="fas fa-envelope"></i></span>
-  <input  type="email" class="form-control" placeholder="Enter your E-mail"  aria-describedby="basic-addon1"
+       <div className="input-group mb-4">
+  <span className="input-group-text" id="basic-addon1"> <i className="fas fa-envelope"></i></span>
+  <input  type="email" className="form-control" placeholder="Enter your E-mail"  aria-describedby="basic-addon1"
   {...register('email',
     {
       required:"email is required",

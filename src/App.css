@@ -5,12 +5,17 @@
 .overlay{
     background: linear-gradient(45deg,rgba(84, 158, 124,0.6),rgba(46, 45, 45, 0.99));
 }
-
+.container-SideBar{
+ background-color:rgba(31, 38, 62, 1) ;
+   position: fixed;
+   top: 0;
+   left: 0;
+   height: 100vh;
+   z-index: 100;
+}
 .container-SideBar .ps-sidebar-container{
-    
-    background-color:rgba(31, 38, 62, 1) ;
-    height: 100vh;
-    border-top-right-radius:50px ;
+     background-color:rgba(31, 38, 62, 1) ;
+    border-top-right-radius:60px ;
 }
 .container-SideBar .ps-menu-button{
     color: antiquewhite !important;

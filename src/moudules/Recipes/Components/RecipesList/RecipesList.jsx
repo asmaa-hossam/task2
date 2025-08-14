@@ -7,11 +7,13 @@ import { ClipLoader } from "react-spinners";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import nodata from '../../../../assets/images/nodata.png'
+import { useNavigate } from 'react-router-dom';
+
 export default function RecipesList() {
    let[recpieslist,setrecpiesList]=useState([]);
       const [show, setShow] = useState(false);
       const [ItemId, setItemID] = useState(0);
-  
+  let navigate=useNavigate()
     let[isloading,setisloading]=useState(false)
      const handleClose = () => setShow(false);
     const handleShow = (id) =>{
@@ -54,13 +56,16 @@ export default function RecipesList() {
       <Headers  title1={'Recipes'} title2={'Items'} 
       description={'You can now add your items that any user can order it from the Application and you can edit'}
       />
+     
+      <div className="container">
+
       <div className="categoryTitle d-flex justify-content-between align-items-center p-3">
           <div className="decreption">
           <h4>Recipe Table Details</h4>
-          <p>You can check all details</p>
+          <p className=' text-muted'>You can check all details</p>
           </div>
           <div className="btnn">
-          <button className=' btn text-light ' style={{backgroundColor:"rgba(0, 146, 71, 1)"}}>Add New item</button>
+          <button className=' btn text-light ' onClick={()=>navigate('/dashBoard/recipeData')} style={{backgroundColor:"rgba(0, 146, 71, 1)"}}>Add New item</button>
           </div>
         </div>
 
@@ -68,7 +73,6 @@ export default function RecipesList() {
         
       <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-         
         </Modal.Header>
         <Modal.Body className=' text-center'>
         <img src={nodata} alt=""  className=' '/>
@@ -83,7 +87,7 @@ export default function RecipesList() {
         </Modal.Footer>
       </Modal>
          
-         {recpieslist?.length>0? <table class="table table-striped">
+         {recpieslist?.length>0? <table className="table table-striped ms-4">
   <thead>
     <tr>
       <th scope="col">Item Name</th>
@@ -98,13 +102,14 @@ export default function RecipesList() {
   <tbody>
    {recpieslist?.map((item)=><tr key={item.id}>
       <td>{item.name}</td>
-      <td>{item.imagePath}</td>
+      <td>{item.imagePath?< img src={`https://upskilling-egypt.com:3006/${item.imagePath}`} style={{width:"30px"}}/>: < img src={nodata} style={{width:"30px"}}/>}</td>
       <td>{item.price}</td>
        <td>{item.description}</td>
-      <td>{item.category.name}</td>
+      <td>{item.tag.name}</td>
+      <td>{item.category[0]?.name}</td>
 
-      <td><i class="fas fa-pen mx-3 text-warning"></i>
-     <i class="fas fa-trash text-danger"  onClick={()=>handleShow(item.id)}></i>
+      <td><i className="fas fa-pen mx-3 text-warning"></i>
+     <i className="fas fa-trash text-danger"  onClick={()=>handleShow(item.id)}></i>
 </td>
     </tr>
    )}
@@ -114,6 +119,8 @@ export default function RecipesList() {
   
         </div>
 
-    </>
+   </div>
+   </>
+
   )
 }

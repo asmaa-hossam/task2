@@ -7,15 +7,16 @@ import { Outlet } from 'react-router-dom'
 export default function MasterLayout({loginData, logOutUser}) {
   return (
     <>
-       <div className="d-flex">
-           <div className='col-md-3'>
+    <div className="container-fluid">
+       <div className="row">
+           <div className='col-md-2'>
             <Siddebar  logOutUser={logOutUser}/>
            </div>
-          <div className="col-md-9">
+          <div className="col-md-10 ">
             <NavBar loginData={loginData} />
-           
             <Outlet/>
            </div>
+       </div>
        </div>
     </>
   )

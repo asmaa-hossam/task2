@@ -30,9 +30,9 @@ axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Reset`,data)
               </div>
        
                 <form onSubmit={handleSubmit(onSubmit)} >
-              <div class="input-group mb-4">
-         <span class="input-group-text" id="basic-addon1"> <i class="fas fa-envelope"></i></span>
-         <input  type="email" class="form-control" placeholder="Enter your E-mail"  aria-describedby="basic-addon1"
+              <div className="input-group mb-4">
+         <span className="input-group-text" id="basic-addon1"> <i className="fas fa-envelope"></i></span>
+         <input  type="email" className="form-control" placeholder="Enter your E-mail"  aria-describedby="basic-addon1"
          {...register('email',
            {
              required:"email is required",
@@ -48,9 +48,9 @@ axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Reset`,data)
        
 
 
-        <div class="input-group mb-4">
-         <span class="input-group-text" id="basic-addon1"> <i class="fas fa-key"></i></span>
-         <input  type="text" class="form-control" placeholder="OTP"  aria-describedby="basic-addon1"
+        <div className="input-group mb-4">
+         <span className="input-group-text" id="basic-addon1"> <i className="fas fa-key"></i></span>
+         <input  type="text" className="form-control" placeholder="OTP"  aria-describedby="basic-addon1"
          {...register('seed',
            {
              required:"seed is required",
@@ -61,9 +61,9 @@ axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Reset`,data)
        </div>
        {errors.seed&&<div className=' alert alert-danger  p-0 border-0  bg-light'>{errors.seed.message}</div>}
 
-      <div class="input-group mb-3">
-  <span class="input-group-text" id="basic-addon1"> <i class="fas fa-lock"></i></span>
-  <input type="password" class="form-control" placeholder="Password"  aria-describedby="basic-addon1"
+      <div className="input-group mb-3">
+  <span className="input-group-text" id="basic-addon1"> <i className="fas fa-lock"></i></span>
+  <input type="password" className="form-control" placeholder="Password"  aria-describedby="basic-addon1"
   {...register('password',{
 required:"password is required"
   })}
@@ -72,9 +72,9 @@ required:"password is required"
 {errors.password&&<div className=' alert alert-danger p-0 border-0  bg-light'>{errors.password.message}</div>}
 
 
-<div class="input-group mb-3">
-  <span class="input-group-text" id="basic-addon1"> <i class="fas fa-lock"></i></span>
-  <input type="password" class="form-control" placeholder="Confirm New Password"  aria-describedby="basic-addon1"
+<div className="input-group mb-3">
+  <span className="input-group-text" id="basic-addon1"> <i className="fas fa-lock"></i></span>
+  <input type="password" className="form-control" placeholder="Confirm New Password"  aria-describedby="basic-addon1"
   {...register('confirmPassword', {
  required: 'Confirm Password is required',
    validate: (value) =>

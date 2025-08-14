@@ -10,7 +10,7 @@ export default function NoData() {
       <div className='text-center'>
         <img src={nodata} alt="" />
         <h5 className=' my-3'>No Data !</h5>
-        <p>are you sure you want to delete this item ? if you are sure just click on delete it</p>
+        <p className=' text-muted'>are you sure you want to delete this item ? if you are sure just click on delete it</p>
       </div>
     </>
   )
