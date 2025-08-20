@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from'../../../../assets/images/logo.png'
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { axiosInstant, USERS_URLS } from '../../../../Serviece/Url';
+import { EMAIL_VALIDATION } from '../../../../Serviece/validation';
 export default function ResetPass() {
   let navigate=useNavigate()
-   let {register,formState:{errors},handleSubmit,watch}=useForm();
+  let location=useLocation()
+ let [isVisablePass,setIsVisable]=useState(false)
+   let {register,formState:{errors},handleSubmit,watch}=useForm({defaultValues:{
+    email:location.state
+   }});
   let onSubmit=(data)=>{
-axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Reset`,data)
+axiosInstant.post(USERS_URLS.RESET_PASS,data)
     .then((res)=>{
       navigate('/login')
      console.log(res)
@@ -16,13 +22,8 @@ axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Reset`,data)
   }
   return (
     <>
-       <div className="authContainer w-100 vh-100">
-      <div className="overlay w-100">
-     <div className="row justify-content-center align-items-center  vh-100">
-      <div className="col-md-6  bg-white rounded-3 py-4 px-3 ">
-       <div className="containerlogo mb-2 text-center">
-               <img src={logo} alt="logo"  />
-              </div>
+       
+
               <div className="title">
                 <h5 className="fw-bold"> Reset  Password</h5>
                 <p className="text-muted">Please Enter Your Otp  or Check Your Inbox</p>
@@ -30,24 +31,15 @@ axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Reset`,data)
               </div>
        
                 <form onSubmit={handleSubmit(onSubmit)} >
+                  {/**email */}
               <div className="input-group mb-4">
          <span className="input-group-text" id="basic-addon1"> <i className="fas fa-envelope"></i></span>
-         <input  type="email" className="form-control" placeholder="Enter your E-mail"  aria-describedby="basic-addon1"
-         {...register('email',
-           {
-             required:"email is required",
-             pattern:{
-               value:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-               message:"email not valid"
-             }
-           }
-         )}
+         <input  type="email" className="form-control" disabled={true} placeholder="Enter your E-mail"  aria-describedby="basic-addon1"
+         {...register('email')}
          />
-       </div>
-       {errors.email&&<div className=' alert alert-danger  p-0 border-0  bg-light'>{errors.email.message}</div>}
-       
+       </div>       
 
-
+ {/**otp */}
         <div className="input-group mb-4">
          <span className="input-group-text" id="basic-addon1"> <i className="fas fa-key"></i></span>
          <input  type="text" className="form-control" placeholder="OTP"  aria-describedby="basic-addon1"
@@ -60,18 +52,25 @@ axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Reset`,data)
          />
        </div>
        {errors.seed&&<div className=' alert alert-danger  p-0 border-0  bg-light'>{errors.seed.message}</div>}
-
+{/**password */}
       <div className="input-group mb-3">
   <span className="input-group-text" id="basic-addon1"> <i className="fas fa-lock"></i></span>
-  <input type="password" className="form-control" placeholder="Password"  aria-describedby="basic-addon1"
+  <input type={isVisablePass?"text":"password"}
+   className="form-control" placeholder="Password"  aria-describedby="basic-addon1"
   {...register('password',{
 required:"password is required"
   })}
   />
+    <button type="button" className="input-group-text" id="basic-addon1"
+     onClick={()=>setIsVisable(!isVisablePass)}
+     onMouseDown={(e)=>e.preventDefault()}
+      onMouseUp={(e)=>e.preventDefault()}
+    > <i className= {isVisablePass?"fas fa-eye":"fas fa-eye-slash"}></i></button>
+
 </div>
 {errors.password&&<div className=' alert alert-danger p-0 border-0  bg-light'>{errors.password.message}</div>}
 
-
+{/**reset password */}
 <div className="input-group mb-3">
   <span className="input-group-text" id="basic-addon1"> <i className="fas fa-lock"></i></span>
   <input type="password" className="form-control" placeholder="Confirm New Password"  aria-describedby="basic-addon1"
@@ -84,16 +83,13 @@ required:"password is required"
   />
 </div>
 {errors.confirmPassword&&<div className=' alert alert-danger p-0 border-0  bg-light'>{errors.confirmPassword.message}</div>}
-       <button className='btn text-light w-100 mt-4' style={{backgroundColor:'rgba(74, 163, 90, 1)'}}>Reset Password</button>
+       <button className='btn text-light w-100 mt-4' style={{backgroundColor:'rgba(74, 163, 90, 1)'}}
+      
+       >Reset Password</button>
        
        </form>
        
-      </div>
-
-     </div>
-</div>
-     </div>
-
+     
     </>
   )
 }

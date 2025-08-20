@@ -1,15 +1,19 @@
-import React from 'react';
-import logo from '../../../../assets/images/logo.png';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { axiosInstant, USERS_URLS } from '../../../../Serviece/Url';
+import { EMAIL_VALIDATION, PASSWORD_VALIDATION } from '../../../../Serviece/validation';
 
 export default function Login({ getlogedUserData }) {
   let navigate = useNavigate();
-  let { register, formState: { errors }, handleSubmit } = useForm();
-
-  let onSubmit = (data) => {
-    axios.post(`https://upskilling-egypt.com:3006/api/v1/Users/Login`, data)
+  let { register, formState: { errors,isSubmitting }, handleSubmit } = useForm();
+   let[showPas,setShowPass]=useState(false)
+   let toggleshow=()=>{
+    setShowPass(!showPas)
+   }
+  let onSubmit = async (data) => {
+   return axiosInstant.post(USERS_URLS.LOGIN, data)
       .then((res) => {
         localStorage.setItem('token', res.data.token);
         getlogedUserData();
@@ -19,15 +23,8 @@ export default function Login({ getlogedUserData }) {
   };
 
   return (
-    <div className="authContainer w-100 vh-100 d-flex flex-column justify-content-center align-items-center">
-      <div className="overlay w-100 h-100 d-flex justify-content-center align-items-center p-3">
-        
-        <div className="bg-white rounded-3 p-4 p-sm-5 shadow-sm" style={{ maxWidth: '500px', width: '100%' }}>
-          
-          <div className="containerlogo mb-3 text-center">
-            <img src={logo} alt="logo" className="img-fluid" style={{ maxWidth: '120px' }} />
-          </div>
-
+    
+<>
          
           <div className="title text-center">
             <h5 className="fw-bold">Log In</h5>
@@ -45,28 +42,30 @@ export default function Login({ getlogedUserData }) {
                 type="email"
                 className="form-control"
                 placeholder="Enter your E-mail"
-                {...register('email', {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "Email not valid"
-                  }
-                })}
+                {...register('email', EMAIL_VALIDATION)}
               />
             </div>
             {errors.email && <div className="alert alert-danger p-1">{errors.email.message}</div>}
 
-           
+           {/**password */}
             <div className="input-group mb-3">
               <span className="input-group-text">
                 <i className="fas fa-lock"></i>
               </span>
               <input
-                type="password"
+                type={showPas?"text":"password"}
                 className="form-control"
                 placeholder="Password"
-                {...register('password', { required: "Password is required" })}
+                {...register('password',PASSWORD_VALIDATION)}
               />
+               <button type="button" className="input-group-text"
+                onMouseDown={(e)=>e.preventDefault()}
+                 onMouseUp={(e)=>e.preventDefault()}
+                 onClick={toggleshow}
+               >
+
+                <i  className= {showPas?"fas fa-eye":"fas fa-eye-slash"} ></i>
+              </button>
             </div>
             {errors.password && <div className="alert alert-danger p-1">{errors.password.message}</div>}
 
@@ -78,13 +77,13 @@ export default function Login({ getlogedUserData }) {
                 Forgot Password?
               </Link>
             </div>
-
-            <button type="submit" className="btn text-light w-100 mt-4" style={{ backgroundColor: 'rgba(74, 163, 90, 1)' }}>
-              Login
+             
+            
+            <button type="submit" disabled={isSubmitting} className="btn text-light w-100 mt-4" style={{ backgroundColor: 'rgba(74, 163, 90, 1)' }}>
+             {isSubmitting ? "Submitting..." : "Login"}
             </button>
+           
           </form>
-        </div>
-      </div>
-    </div>
+       </>
   );
 }

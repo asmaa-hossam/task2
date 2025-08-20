@@ -2,11 +2,8 @@ import React, { useState } from 'react'
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
 import sidbarlogo from '../../../../assets/images/sidbarlogo.png'
-export default function Siddebar({logOutUser}) {
-  let [collabse,setcollabs]=useState(false)
-  function toggleCollabs(){
-    setcollabs(!collabse)
-  }
+export default function Siddebar({logOutUser, collabse, toggleCollabs}) {
+  
   return (
     <div className="container-SideBar">
       <Sidebar collapsed={collabse}   >

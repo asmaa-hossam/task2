@@ -5,17 +5,21 @@
 .overlay{
     background: linear-gradient(45deg,rgba(84, 158, 124,0.6),rgba(46, 45, 45, 0.99));
 }
-.container-SideBar{
- background-color:rgba(31, 38, 62, 1) ;
-   position: fixed;
-   top: 0;
-   left: 0;
-   height: 100vh;
-   z-index: 100;
+
+.container-SideBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;  
+  z-index: 1000;  
+   background-color:rgba(31, 38, 62, 1) ; 
+  border-top-right-radius: 100px;
 }
+
 .container-SideBar .ps-sidebar-container{
      background-color:rgba(31, 38, 62, 1) ;
     border-top-right-radius:60px ;
+    height: 100% !important;
 }
 .container-SideBar .ps-menu-button{
     color: antiquewhite !important;
